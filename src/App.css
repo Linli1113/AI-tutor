@@ -1,0 +1,70 @@
+.app-header {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px 24px;
+  box-shadow: 0 4px 20px rgba(216, 191, 216, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(176, 196, 222, 0.2);
+}
+
+.app-header h1 {
+  background: linear-gradient(135deg, #C8B6E2 0%, #A8D8EA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C8B6E2 0%, #A8D8EA 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(200, 182, 226, 0.3);
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 12px 16px;
+  }
+  
+  .app-header h1 {
+    font-size: 1.2rem;
+  }
+}
+
+.context-menu {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  min-width: 150px;
+  z-index: 1000;
+}
+
+.context-menu-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  color: #333;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.context-menu-item:hover {
+  background-color: #f3f4f6;
+}

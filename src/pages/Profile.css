@@ -1,0 +1,32 @@
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C8B6E2 0%, #A8D8EA 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 48px;
+  font-weight: 500;
+  margin: 0 auto 20px;
+  box-shadow: 0 6px 20px rgba(200, 182, 226, 0.35);
+}
+
+.stat-card {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(200, 182, 226, 0.2);
+}
+
+.stat-label {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 500;
+  color: #777;
+}
