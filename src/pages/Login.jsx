@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import './Login.css'
 
+const PASSWORD_RULE = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/
+
 function Login({ onLogin }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -12,9 +14,15 @@ function Login({ onLogin }) {
     e.preventDefault()
     
     if (isRegister) {
+      if (!PASSWORD_RULE.test(password)) {
+        alert('密码需为8-12位，且同时包含英文字符和数字')
+        return
+      }
+
       const newUser = {
         id: Date.now(),
         username,
+        password,
         grade,
         targetScore: parseInt(targetScore) || 0,
         studyTime: 0,
@@ -41,6 +49,11 @@ function Login({ onLogin }) {
       const user = users.find(u => u.username === username)
       
       if (user) {
+        if (user.password && user.password !== password) {
+          alert('密码错误，请重新输入')
+          return
+        }
+
         onLogin(user)
       } else {
         alert('用户不存在，请先注册')
@@ -145,11 +158,14 @@ function Login({ onLogin }) {
           
           <input
             type="password"
-            placeholder="密码"
+            placeholder={isRegister ? '密码（8-12位，含英文和数字）' : '密码'}
             className="input mb-4"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            minLength={8}
+            maxLength={12}
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$"
             style={{
               borderRadius: '20px',
               border: '2px solid #F5A08C',
@@ -159,6 +175,18 @@ function Login({ onLogin }) {
               fontSize: '16px'
             }}
           />
+
+          {isRegister && (
+            <div style={{
+              marginTop: '-8px',
+              marginBottom: '16px',
+              fontSize: '13px',
+              color: '#8B7A6B',
+              lineHeight: 1.5
+            }}>
+              密码需为8-12位，且同时包含数字和英文字符
+            </div>
+          )}
           
           {isRegister && (
             <>

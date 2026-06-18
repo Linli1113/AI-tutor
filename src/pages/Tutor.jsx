@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Tutor.css'
 
+const DEFAULT_DEEPSEEK_API_KEY =
+  import.meta.env.VITE_DEEPSEEK_API_KEY || 'sk-f71c7058d3364af6a0166cc0c2737c4d'
+
 function Tutor({ user }) {
   const navigate = useNavigate()
   const [question, setQuestion] = useState('')
@@ -21,12 +24,12 @@ function Tutor({ user }) {
     setCurrentDate(`${year}年${month}月${day}日 ${weekDay}`)
   }, [])
 
-  // 初始化时检查是否有API Key，没有则显示配置界面
+  // 首次进入时静默补齐 API Key，避免移动端新用户看到配置弹窗
   useEffect(() => {
     const savedKey = localStorage.getItem('deepseekApiKey')
     if (!savedKey) {
-      setShowConfig(true)
-      setApiKeyInput('sk-f71c7058d3364af6a0166cc0c2737c4d')
+      localStorage.setItem('deepseekApiKey', DEFAULT_DEEPSEEK_API_KEY)
+      setApiKeyInput(DEFAULT_DEEPSEEK_API_KEY)
     } else {
       setApiKeyInput(savedKey)
     }
@@ -47,9 +50,12 @@ function Tutor({ user }) {
     setLoading(true)
 
     try {
-      const apiKey = localStorage.getItem('deepseekApiKey')
+      const apiKey = localStorage.getItem('deepseekApiKey') || DEFAULT_DEEPSEEK_API_KEY
       if (!apiKey) {
-        setShowConfig(true)
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: '当前讲解服务暂时不可用，请稍后再试。'
+        }])
         setLoading(false)
         return
       }
